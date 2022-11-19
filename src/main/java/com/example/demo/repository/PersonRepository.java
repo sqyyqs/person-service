@@ -1,43 +1,43 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.Person;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class PersonRepository {
-    private final Map<String, Person> persons = new ConcurrentHashMap<>();
 
-    public PersonRepository() {
-        persons.put("Joe", new Person(178, 67, "Joe", 21));
-        persons.put("Misha", new Person(181, 79.9, "Misha", 25));
+    private final static String SQL_SELECT_BY_NAME = "select name, age, weight, height from person where name = :name";
+    private final NamedParameterJdbcTemplate template;
+
+    public PersonRepository(JdbcTemplate jdbcTemplate) {
+        this.template = new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 
     public Person getByName(String name) {
-        return persons.get(name);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("name", name);
+        return template.queryForObject(SQL_SELECT_BY_NAME, parameterSource, new PersonRowMapper());
+
     }
 
     public Collection<Person> getAll() {
-        return persons.values();
+        return null;
     }
 
     public void addPerson(Person person) {
-        persons.put(person.getName(), person);
+
     }
 
     public void removePerson(String name) {
-        persons.remove(name);
+
     }
 
     public boolean updatePerson(Person person) {
-        String personName = person.getName();
-        if (persons.containsKey(personName)) {
-            persons.put(personName, person);
-            return true;
-        }
         return false;
     }
 }
