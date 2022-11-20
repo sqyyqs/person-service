@@ -31,11 +31,13 @@ public class MessageController {
 
     @PostMapping("/send-message")
     public ResponseEntity<String> sendMessage(@RequestBody MessageDto message) {
+        messageService.sendMessage(message);
         return ResponseEntity.ok(JsonUtils.EMPTY_JSON);
     }
 
     @PutMapping("/update-status")
     public ResponseEntity<String> updateStatus(@RequestBody UpdateMessageStatusDto messageStatus) {
+        messageService.updateStatus(messageStatus);
         return ResponseEntity.ok(JsonUtils.EMPTY_JSON);
     }
 }
