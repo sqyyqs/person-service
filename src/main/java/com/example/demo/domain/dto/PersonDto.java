@@ -1,5 +1,6 @@
-package com.example.demo.domain;
+package com.example.demo.domain.dto;
 
+import com.example.demo.domain.Gender;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

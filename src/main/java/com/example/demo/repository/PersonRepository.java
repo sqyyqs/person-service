@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.Person;
-import com.example.demo.domain.PersonDto;
+import com.example.demo.domain.dto.PersonDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Person;
-import com.example.demo.domain.PersonDto;
+import com.example.demo.domain.dto.PersonDto;
 import com.example.demo.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
