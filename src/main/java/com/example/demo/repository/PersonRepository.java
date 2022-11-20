@@ -30,6 +30,7 @@ public class PersonRepository {
 
     private final static String SQL_UPDATE_PERSON = "update person set age = :age, weight = :weight, height = :height," +
             " name = :name, gender = :gender where id = :id";
+
     private final NamedParameterJdbcTemplate template;
 
     public PersonRepository(JdbcTemplate jdbcTemplate) {
