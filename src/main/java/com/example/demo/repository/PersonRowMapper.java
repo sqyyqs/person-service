@@ -13,7 +13,8 @@ public class PersonRowMapper implements RowMapper<Person> {
                 rs.getDouble("height"),
                 rs.getDouble("weight"),
                 rs.getString("name"),
-                rs.getLong("age")
+                rs.getLong("age"),
+                rs.getLong("id")
         );
     }
 }

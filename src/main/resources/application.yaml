@@ -4,3 +4,6 @@ database:
   username: postgres
   password: postgrespw
   url: jdbc:postgresql://localhost:55000/postgres
+logging:
+  level:
+    com.example.demo: debug
