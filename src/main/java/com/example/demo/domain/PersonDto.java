@@ -14,6 +14,9 @@ public class PersonDto {
     private final long age;
 
     @Nullable
+    private final Gender gender;
+
+    @Nullable
     private final Long id;
 
     @JsonCreator
@@ -22,12 +25,14 @@ public class PersonDto {
                      @JsonProperty("weight") double weight,
                      @JsonProperty("name") String name,
                      @JsonProperty("age") long age,
-                     @Nullable @JsonProperty("id") Long id) {
+                     @Nullable @JsonProperty("id") Long id,
+                     @Nullable @JsonProperty("gender") String genderValue) {
         this.height = height;
         this.weight = weight;
         this.name = Objects.requireNonNull(name, "Name can't be null.");
         this.age = age;
         this.id = id;
+        this.gender = Gender.getByValue(genderValue);
     }
 
     public double getHeight() {
@@ -51,13 +56,20 @@ public class PersonDto {
         return age;
     }
 
+    @Nullable
+    public Gender getGender() {
+        return gender;
+    }
+
     @Override
     public String toString() {
-        return "Person{" +
+        return "PersonDto{" +
                 "height=" + height +
                 ", weight=" + weight +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", gender=" + gender +
+                ", id=" + id +
                 '}';
     }
 }

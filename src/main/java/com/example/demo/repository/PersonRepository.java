@@ -19,17 +19,17 @@ import java.util.Collections;
 public class PersonRepository {
     private static final Logger logger = LoggerFactory.getLogger(PersonRepository.class);
 
-    private final static String SQL_SELECT_BY_ID = "select name, age, weight, height, id from person where id = :id";
+    private final static String SQL_SELECT_BY_ID = "select name, age, weight, height, id, gender from person where id = :id";
 
-    private final static String SQL_SELECT_ALL = "select name, age, weight, height, id from person";
+    private final static String SQL_SELECT_ALL = "select name, age, weight, height, id, gender from person";
 
     private final static String SQL_DELETE_BY_ID = "delete from person where id = :id";
 
-    private final static String SQL_INSERT_PERSON = "insert into person(name, age, weight, height)" +
-            "values (:name, :age, :weight, :height)";
+    private final static String SQL_INSERT_PERSON = "insert into person(name, age, weight, height, gender)" +
+            "values (:name, :age, :weight, :height, :gender)";
 
     private final static String SQL_UPDATE_PERSON = "update person set age = :age, weight = :weight, height = :height," +
-            " name = :name where id = :id";
+            " name = :name, gender = :gender where id = :id";
     private final NamedParameterJdbcTemplate template;
 
     public PersonRepository(JdbcTemplate jdbcTemplate) {
@@ -101,6 +101,8 @@ public class PersonRepository {
         parameterSource.addValue("age", person.getAge());
         parameterSource.addValue("weight", person.getWeight());
         parameterSource.addValue("height", person.getHeight());
+        String genderValue = person.getGender() == null ? null : person.getGender().name();
+        parameterSource.addValue("gender", genderValue);
         return parameterSource;
     }
 }

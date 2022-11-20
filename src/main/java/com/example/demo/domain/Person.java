@@ -1,7 +1,11 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.annotation.Nullable;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person {
     private final double height;
     private final double weight;
@@ -9,12 +13,16 @@ public class Person {
     private final long age;
     private final long id;
 
-    public Person(double height, double weight, String name, long age, long id) {
+    @Nullable
+    private final Gender gender;
+
+    public Person(double height, double weight, String name, long age, long id, @Nullable Gender gender) {
         this.height = height;
         this.weight = weight;
         this.name = name;
         this.age = age;
         this.id = id;
+        this.gender = gender;
     }
 
     public double getHeight() {
@@ -38,6 +46,11 @@ public class Person {
         return id;
     }
 
+    @Nullable
+    public Gender getGender() {
+        return gender;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -46,6 +59,7 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", id=" + id +
+                ", gender=" + gender +
                 '}';
     }
 }

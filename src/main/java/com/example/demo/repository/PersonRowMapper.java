@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.domain.Gender;
 import com.example.demo.domain.Person;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -14,7 +15,8 @@ public class PersonRowMapper implements RowMapper<Person> {
                 rs.getDouble("weight"),
                 rs.getString("name"),
                 rs.getLong("age"),
-                rs.getLong("id")
+                rs.getLong("id"),
+                Gender.getByValue(rs.getString("gender"))
         );
     }
 }
