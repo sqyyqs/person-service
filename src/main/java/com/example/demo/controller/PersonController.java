@@ -4,7 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.Person;
 import com.example.demo.domain.dto.PersonDto;
 import com.example.demo.service.PersonService;
-import com.example.demo.utils.JsonUtils;
+import com.example.demo.utils.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -49,13 +49,13 @@ public class PersonController {
     @PostMapping("/add")
     public ResponseEntity<String> addPerson(@RequestBody PersonDto person) {
         personService.addPerson(person);
-        return ResponseEntity.ok(JsonUtils.EMPTY_JSON);
+        return ResponseEntity.ok(MappingUtils.EMPTY_JSON);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> removePerson(@RequestParam long id) {
         personService.removePerson(id);
-        return ResponseEntity.ok(JsonUtils.EMPTY_JSON);
+        return ResponseEntity.ok(MappingUtils.EMPTY_JSON);
     }
 
     @PutMapping("/update")

@@ -7,3 +7,4 @@ database:
 logging:
   level:
     com.example.demo: debug
+notificationServiceApiPath: http://localhost:8081

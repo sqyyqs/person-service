@@ -4,7 +4,7 @@ import com.example.demo.domain.Message;
 import com.example.demo.domain.dto.MessageDto;
 import com.example.demo.domain.dto.UpdateMessageStatusDto;
 import com.example.demo.service.MessageService;
-import com.example.demo.utils.JsonUtils;
+import com.example.demo.utils.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -39,13 +39,13 @@ public class MessageController {
     public ResponseEntity<String> sendMessage(@RequestBody MessageDto message) {
         logger.info("Invoke sendMessage({})", message);
         messageService.sendMessage(message);
-        return ResponseEntity.ok(JsonUtils.EMPTY_JSON);
+        return ResponseEntity.ok(MappingUtils.EMPTY_JSON);
     }
 
     @PutMapping("/update-status")
     public ResponseEntity<String> updateStatus(@RequestBody UpdateMessageStatusDto messageStatus) {
         logger.info("Invoke updateStatus({})", messageStatus);
         messageService.updateStatus(messageStatus);
-        return ResponseEntity.ok(JsonUtils.EMPTY_JSON);
+        return ResponseEntity.ok(MappingUtils.EMPTY_JSON);
     }
 }
