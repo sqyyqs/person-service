@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.cache.MessageCache;
 import com.example.demo.domain.Message;
 import com.example.demo.domain.MessageStatus;
 import com.example.demo.domain.Person;
@@ -24,29 +25,34 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final PersonService personService;
     private final String notificationServiceApiPath;
+    private final MessageCache messageCache;
 
     public MessageService(MessageRepository messageRepository,
                           PersonService personService,
-                          @Value("${notificationServiceApiPath}") String notificationServiceApiPath) {
+                          @Value("${notificationServiceApiPath}") String notificationServiceApiPath,
+                          MessageCache messageCache) {
         this.messageRepository = messageRepository;
         this.personService = personService;
         this.notificationServiceApiPath = notificationServiceApiPath;
+        this.messageCache = messageCache;
     }
 
     public Collection<Message> getByFromPersonId(long id) {
         checkPerson(id);
-        return messageRepository.getByFromPersonId(id);
+        return messageCache.getByFromPersonId(id);
     }
 
     public Collection<Message> getByToPersonId(long id) {
         checkPerson(id);
-        return messageRepository.getByToPersonId(id);
+        return messageCache.getByToPersonId(id);
     }
 
     public void sendMessage(MessageDto message) {
         checkPerson(message.getToId());
         checkPerson(message.getFromId());
         messageRepository.sendMessage(message);
+        messageCache.invalidateCacheByToPersonId(message.getToId());
+        messageCache.invalidateCacheByFromPersonId(message.getFromId());
         ResponseEntity<String> response = HttpUtils
                 .jsonPostRequest(notificationServiceApiPath + SEND_NOTIFICATION_API_PATH, message);
         MessageStatus status = MappingUtils.parseJsonToInstance(response.getBody(), MessageStatus.class);
